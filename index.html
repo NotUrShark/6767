@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সপ্তবর্ণা (৭ম শ্রেণি) — গদ্য ও পদ্য ৮ম ও ৯ম অধ্যায় ৬০টি MCQ কুইজ</title>
+
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Load Hind Siliguri & Noto Sans Bengali for clean Bengali typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            bengali: ['"Hind Siliguri"', '"Noto Sans Bengali"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Base typography and smooth transitions */
+    body {
+      font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Hide scrollbar on horizontal tab lists while keeping scroll functionality */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeSlideIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col">
+  <!-- Top Header & Controls -->
+  <header class="sticky top-0 z-30 backdrop-blur-md bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <!-- Title & Badge -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-emerald-600/20 shrink-0">
+            ৭ম
+          </div>
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white leading-snug">
+              সপ্তবর্ণা: গদ্য ও পদ্য (৮ম ও ৯ম অধ্যায়) MCQ কুইজ
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+              মোট ৬০টি প্রশ্ন • প্রতিটি অধ্যায়ে ১৫টি করে বহুনির্বাচনি প্রশ্ন ও ব্যাখ্যা
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons: View Mode, Retry Incorrect, Reset, Theme -->
+        <div class="flex items-center flex-wrap gap-2">
+          <!-- View Mode Toggle -->
+          <div class="inline-flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 border border-slate-200 dark:border-slate-700" role="group" aria-label="প্রদর্শন মোড">
+            <button
+              id="modeSingleBtn"
+              type="button"
+              onclick="setViewMode('single')"
+              class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-emerald-600 text-white shadow-sm"
+            >
+              একটি করে
+            </button>
+            <button
+              id="modeAllBtn"
+              type="button"
+              onclick="setViewMode('all')"
+              class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60"
+            >
+              সব প্রশ্ন একসাথে
+            </button>
+          </div>
+
+          <!-- Retry Incorrect Button -->
+          <button
+            id="retryIncorrectBtn"
+            type="button"
+            onclick="retryIncorrectQuestions()"
+            class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-amber-300 dark:border-amber-700/70 bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition disabled:opacity-40 disabled:pointer-events-none"
+            disabled
+            title="ভুল উত্তর দেওয়া প্রশ্নগুলো পুনরায় অনুশীলন করুন"
+          >
+            ভুলগুলো পুনঃচেষ্টা (<span id="incorrectCountBadge">0</span>)
+          </button>
+
+          <!-- Reset Quiz Button -->
+          <button
+            id="resetQuizBtn"
+            type="button"
+            onclick="openResetModal()"
+            class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition"
+            title="কুইজ রিসেট করুন"
+          >
+            রিসেট
+          </button>
+
+          <!-- Dark/Light Theme Toggle -->
+          <button
+            id="themeToggleBtn"
+            type="button"
+            onclick="toggleTheme()"
+            class="p-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-amber-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition"
+            aria-label="থিম পরিবর্তন করুন"
+            title="ডার্ক / লাইট মোড পরিবর্তন"
+          >
+            <span id="themeIcon" class="text-base leading-none">🌙</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Chapter Filter Tabs -->
+      <nav aria-label="অধ্যায় নির্বাচন" class="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" id="chapterTabs">
+        <!-- Populated by JS -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <!-- Live Scoreboard & Progress Bar -->
+    <section aria-label="স্কোর ও অগ্রগতি" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-sm">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4">
+        <div class="rounded-xl bg-slate-50 dark:bg-slate-800/70 p-3 border border-slate-200/70 dark:border-slate-700/70">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">বর্তমান সেটের প্রশ্ন</div>
+          <div id="statTotal" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-0.5">৬০</div>
+        </div>
+        <div class="rounded-xl bg-emerald-50 dark:bg-emerald-950/40 p-3 border border-emerald-200/80 dark:border-emerald-800/60">
+          <div class="text-xs font-medium text-emerald-700 dark:text-emerald-400">সঠিক উত্তর</div>
+          <div id="statCorrect" class="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300 mt-0.5">০</div>
+        </div>
+        <div class="rounded-xl bg-rose-50 dark:bg-rose-950/40 p-3 border border-rose-200/80 dark:border-rose-800/60">
+          <div class="text-xs font-medium text-rose-700 dark:text-rose-400">ভুল উত্তর</div>
+          <div id="statIncorrect" class="text-xl sm:text-2xl font-bold text-rose-700 dark:text-rose-300 mt-0.5">০</div>
+        </div>
+        <div class="rounded-xl bg-amber-50 dark:bg-amber-950/40 p-3 border border-amber-200/80 dark:border-amber-800/60">
+          <div class="text-xs font-medium text-amber-700 dark:text-amber-400">বাকি / উত্তরহীন</div>
+          <div id="statRemaining" class="text-xl sm:text-2xl font-bold text-amber-700 dark:text-amber-300 mt-0.5">৬০</div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
+          <span id="progressLabel">অগ্রগতি: ৬০টির মধ্যে ০টি উত্তর দেওয়া হয়েছে</span>
+          <span id="progressPercent" class="font-bold text-emerald-700 dark:text-emerald-400">০%</span>
+        </div>
+        <div class="w-full h-3 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+          <div
+            id="progressBarFill"
+            class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-300"
+            style="width: 0%"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Single Question Mode Container -->
+    <section id="singleQuestionView" class="space-y-5">
+      <!-- Question Jumper Palette -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
+            প্রশ্ন নম্বর অনুযায়ী দ্রুত যান (১–৬০):
+          </span>
+          <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+            <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> সঠিক</span>
+            <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> ভুল</span>
+            <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></span> বাকি</span>
+          </div>
+        </div>
+        <div id="questionPalette" class="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto pr-1">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Active Question Card -->
+      <div id="activeQuestionContainer">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Previous / Next Navigation Bar -->
+      <div class="flex items-center justify-between gap-3 pt-1">
+        <button
+          id="prevQuestionBtn"
+          type="button"
+          onclick="navigateQuestion(-1)"
+          class="px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-sm border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition disabled:opacity-40 disabled:pointer-events-none"
+        >
+          ← পূর্ববর্তী প্রশ্ন
+        </button>
+
+        <div id="singleIndexIndicator" class="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
+          প্রশ্ন ১ / ৬০
+        </div>
+
+        <button
+          id="nextQuestionBtn"
+          type="button"
+          onclick="navigateQuestion(1)"
+          class="px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition disabled:opacity-40 disabled:pointer-events-none"
+        >
+          পরবর্তী প্রশ্ন →
+        </button>
+      </div>
+    </section>
+
+    <!-- All Questions Mode Container -->
+    <section id="allQuestionsView" class="hidden space-y-5">
+      <!-- Populated by JS -->
+    </section>
+
+    <!-- Summary / Completion Banner when set is finished -->
+    <section id="completionBanner" class="hidden bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/60 dark:to-slate-900 rounded-2xl border border-emerald-200 dark:border-emerald-800/70 p-5 sm:p-6 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-600 text-white">
+            কুইজ সম্পন্ন হয়েছে
+          </span>
+          <h2 id="completionTitle" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+            অভিনন্দন! আপনি সব প্রশ্নের উত্তর দিয়েছেন।
+          </h2>
+          <p id="completionSummary" class="text-sm sm:text-base text-slate-700 dark:text-slate-300">
+            আপনার ফলাফল নিচে দেওয়া হলো।
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2.5 shrink-0">
+          <button
+            id="bannerRetryWrongBtn"
+            type="button"
+            onclick="retryIncorrectQuestions()"
+            class="hidden px-4 py-2.5 rounded-xl text-sm font-semibold bg-amber-500 hover:bg-amber-600 text-white shadow-sm transition"
+          >
+            ভুল প্রশ্নগুলো পুনরায় দিন
+          </button>
+          <button
+            type="button"
+            onclick="openResetModal()"
+            class="px-4 py-2.5 rounded-xl text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition"
+          >
+            নতুনভাবে শুরু করুন
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Keyboard Shortcuts Helper Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-4 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <div>
+        কীবোর্ড শর্টকাট: <kbd class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono">1-4</kbd> অথবা <kbd class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono">A-D</kbd> অপশন বাছাই • <kbd class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono">Enter</kbd> / <kbd class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono">→</kbd> পরবর্তী প্রশ্ন
+      </div>
+      <div>সপ্তবর্ণা (৭ম শ্রেণি) • গদ্য ও পদ্য (৮ম ও ৯ম অধ্যায়)</div>
+    </div>
+  </footer>
+
+  <!-- Custom Reset Confirmation Modal (No browser alert/confirm) -->
+  <div
+    id="resetModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="resetModalTitle"
+  >
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl animate-fade-in">
+      <h3 id="resetModalTitle" class="text-lg font-bold text-slate-900 dark:text-white">
+        কুইজ পুনরায় শুরু করবেন?
+      </h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+        এটি আপনার দেওয়া সব উত্তর ও স্কোর মুছে ফেলবে এবং প্রথম প্রশ্ন থেকে কুইজ নতুন করে শুরু করবে।
+      </p>
+      <div class="mt-5 flex items-center justify-end gap-2.5">
+        <button
+          type="button"
+          onclick="closeResetModal()"
+          class="px-4 py-2 rounded-xl text-sm font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+        >
+          বাতিল
+        </button>
+        <button
+          type="button"
+          onclick="confirmResetQuiz()"
+          class="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition"
+        >
+          হ্যাঁ, রিসেট করুন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. CHAPTER DEFINITIONS & 60 BANGLA MCQ QUESTIONS (15 PER CHAPTER)
+    // =========================================================================
+    const CHAPTERS = [
+      { id: 'all', label: 'সব প্রশ্ন (৬০)', shortLabel: 'সব (৬০)' },
+      { id: 'ch1', label: 'সেই ছেলেটি — মামুনুর রশীদ', shortLabel: 'সেই ছেলেটি' },
+      { id: 'ch2', label: 'বহু জাতিসত্তার দেশ বাংলাদেশ — এ. কে. শেরাম', shortLabel: 'বহু জাতিসত্তার দেশ' },
+      { id: 'ch3', label: 'এই অক্ষরে — মহাদেব সাহা', shortLabel: 'এই অক্ষরে' },
+      { id: 'ch4', label: 'সিঁথি — হাসান রোবায়েত', shortLabel: 'সিঁথি' },
+    ];
+
+    const OPTION_LABELS = ['ক', 'খ', 'গ', 'ঘ'];
+
+    const QUESTIONS = [
+      // -----------------------------------------------------------------------
+      // CHAPTER 1: গদ্য ৮ম অধ্যায় — সেই ছেলেটি (মামুনুর রশীদ) — 15 Questions
+      // -----------------------------------------------------------------------
+      {
+        id: 1,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "'সেই ছেলেটি' নাটিকাটির রচয়িতা কে?",
+        options: ['সেলিম আল দীন', 'মামুনুর রশীদ', 'আবদুল্লাহ আল মামুন', 'হুমায়ূন আহমেদ'],
+        correctIndex: 1,
+        explanation: "'সেই ছেলেটি' নাটিকাটি রচনা করেছেন প্রখ্যাত নাট্যকার ও অভিনেতা মামুনুর রশীদ।"
+      },
+      {
+        id: 2,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "'সেই ছেলেটি' রচনাটি সাহিত্যের কোন শাখার অন্তর্ভুক্ত?",
+        options: ['ছোটগল্প', 'প্রবন্ধ', 'নাটিকা', 'স্মৃতিকথা'],
+        correctIndex: 2,
+        explanation: "সংলাপ ও অভিনয়োপযোগী দৃশ্যপটের মাধ্যমে নির্মিত হওয়ায় এটি একটি নাটিকা।"
+      },
+      {
+        id: 3,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "আরজু, সোমেন ও সাবু—তিনজনের মধ্যে সম্পর্ক কী?",
+        options: ['চাচাতো ভাই', 'সহপাঠী ও বন্ধু', 'প্রতিবেশী ভাই', 'দূরসম্পর্কের আত্মীয়'],
+        correctIndex: 1,
+        explanation: "আরজু, সোমেন ও সাবু একই বিদ্যালয়ের সহপাঠী এবং বন্ধু।"
+      },
+      {
+        id: 4,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "স্কুলে যাওয়ার পথে হঠাৎ মাঝপথে আরজু থেমে যায় কেন?",
+        options: ['তার জুতা ছিঁড়ে গিয়েছিল বলে', 'হাঁটতে হাঁটতে তার পা অবশ হয়ে আসে বলে', 'সে পথ হারিয়ে ফেলেছিল বলে', 'তার ক্ষুধা লেগেছিল বলে'],
+        correctIndex: 1,
+        explanation: "ছোটবেলার অসুখের জের ধরে আরজুর পা সরু ও দুর্বল হয়ে গিয়েছিল; হাঁটার সময় মাঝে মাঝে তার পা অবশ হয়ে আসত।"
+      },
+      {
+        id: 5,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "আরজুর পায়ের সমস্যা সম্পর্কে তার বাবা কী বলেছিলেন?",
+        options: ['বিছানায় শুয়ে থাকতে', 'হাঁটাহাঁটি করলেই সব ঠিক হয়ে যাবে', 'স্কুলে না যেতে', 'শহরে বড় ডাক্তার দেখাতে'],
+        correctIndex: 1,
+        explanation: "আরজুর বাবা সরল বিশ্বাসে মনে করতেন, হাঁটাহাঁটি করলেই আরজুর পায়ের সমস্যা ঠিক হয়ে যাবে।"
+      },
+      {
+        id: 6,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "সাবু কেন আরজুর জন্য অপেক্ষা না করে স্কুলে চলে যেতে চেয়েছিল?",
+        options: ['আরজুর ওপর রাগ করে', 'রোজ রোজ আরজুর জন্য দেরি করে শিক্ষকের বকুনি খেতে চায় না বলে', 'বৃষ্টি শুরু হওয়ায়', 'আরজু যেতে না চাওয়ায়'],
+        correctIndex: 1,
+        explanation: "আরজুর কারণে প্রায়ই স্কুলে যেতে দেরি হওয়ায় সাবু শিক্ষকের বকুনি খাওয়ার কথা বলে এগিয়ে যেতে চায়।"
+      },
+      {
+        id: 7,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "বন্ধুরা স্কুলে চলে যাওয়ার পর আরজুর সাথে প্রথমে কার দেখা হয়?",
+        options: ['লতিফ স্যারের', 'আইসক্রিমওয়ালার', 'হাওয়াই মিঠাইওয়ালার', 'আরজুর বাবার'],
+        correctIndex: 1,
+        explanation: "বন্ধুরা এগিয়ে যাওয়ার পর আরজুর সাথে প্রথমে আইসক্রিমওয়ালার দেখা হয়।"
+      },
+      {
+        id: 8,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "আইসক্রিমওয়ালা আরজুকে কোন বিষয়ে সতর্ক করে দেয়?",
+        options: ['রাস্তায় একা না বসতে', 'স্কুল ফাঁকি দেওয়া খারাপ অভ্যাস', 'অচেনা কারও কাছ থেকে কিছু না নিতে', 'দ্রুত না হাঁটতে'],
+        correctIndex: 1,
+        explanation: "আইসক্রিমওয়ালা নিজের অভিজ্ঞতা থেকে আরজুকে বোঝায় যে স্কুল ফাঁকি দেওয়া ভালো নয়।"
+      },
+      {
+        id: 9,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "হাওয়াই মিঠাইওয়ালা কেন আরজুকে অযথা ডাকতে নিষেধ করে?",
+        options: ['তার হাতে সময় কম বলে', 'সময় নষ্ট হলে হাওয়াই মিঠাই শূন্যে মিলিয়ে যাবে বলে', 'তার মিঠাই শেষ হয়ে গেছে বলে', 'আরজুর কাছে টাকা নেই বলে'],
+        correctIndex: 1,
+        explanation: "হাওয়াই মিঠাই বাতাসের সংস্পর্শে বা সময় গড়ালে শূন্যে মিলিয়ে যায়—তাই সে সময় নষ্ট না করতে বলে।"
+      },
+      {
+        id: 10,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "আরজু একা কোথায় গিয়ে বসেছিল?",
+        options: ['খেলার মাঠে', 'আমবাগানে', 'নদীর পাড়ে', 'বাজারের পাশে'],
+        correctIndex: 1,
+        explanation: "মন খারাপ ও শারীরিক অসহায়ত্ব নিয়ে আরজু আমবাগানে গিয়ে বসে।"
+      },
+      {
+        id: 11,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "আমবাগানে বসে আরজু কোন পাখিকে অনুসরণ করার চেষ্টা করেছিল?",
+        options: ['কাক', 'শালিক', 'চড়ুই', 'ঘুঘু'],
+        correctIndex: 1,
+        explanation: "আমবাগানে বসে আরজু শালিক পাখিকে অনুসরণ করার চেষ্টা করে এবং উড়ে স্কুলে যেতে চায়।"
+      },
+      {
+        id: 12,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "আরজু স্কুলে না আসায় কে তার খোঁজে বের হন?",
+        options: ['সোমেন', 'লতিফ স্যার', 'দপ্তরি', 'সাবু'],
+        correctIndex: 1,
+        explanation: "আরজু স্কুলে অনুপস্থিত থাকায় শ্রেণিশিক্ষক লতিফ স্যার উদ্বিগ্ন হন এবং তাকে খুঁজতে বের হন।"
+      },
+      {
+        id: 13,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "লতিফ স্যার আরজুর পায়ের সমস্যা বুঝতে পেরে কী করার আশ্বাস দেন?",
+        options: ['বাড়ি চলে যেতে', 'চিকিৎসার জন্য সহযোগিতা করার', 'পরীক্ষা না দিতে', 'অন্য স্কুলে ভর্তি হতে'],
+        correctIndex: 1,
+        explanation: "লতিফ স্যার আরজুর পায়ে যে রোগ বা সমস্যা রয়েছে তা বুঝতে পেরে চিকিৎসার বিষয়ে পাশে দাঁড়ানোর কথা বলেন।"
+      },
+      {
+        id: 14,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "লতিফ স্যারের কথা শুনে আরজুর বন্ধুরা কীভাবে তাকে সহযোগিতা করে?",
+        options: ['তাকে একা রেখে চলে যায়', 'তাকে কাঁধে হাত দিয়ে ধরে স্কুলে নিয়ে যায়', 'তাকে বকা দেয়', 'তাকে বাড়িতে রেখে আসে'],
+        correctIndex: 1,
+        explanation: "নিজেদের ভুল বুঝতে পেরে সোমেন ও সাবু আরজুকে কাঁধে হাত দিয়ে ধরে স্কুলে নিয়ে যেতে সহায়তা করে।"
+      },
+      {
+        id: 15,
+        chapterId: 'ch1',
+        chapterName: 'গদ্য ৮ম অধ্যায়: সেই ছেলেটি',
+        question: "'সেই ছেলেটি' নাটিকা পাঠের মূল উদ্দেশ্য কী?",
+        options: ['গ্রামের মেলা বর্ণনা', 'বিশেষ চাহিদাসম্পন্ন শিশুর প্রতি সহানুভূতি, মমত্ববোধ ও সহযোগিতার মনোভাব জাগ্রত করা', 'শহরের যাতায়াত ব্যবস্থা', 'পরীক্ষার প্রস্তুতি'],
+        correctIndex: 1,
+        explanation: "নাটিকাটির মূল উদ্দেশ্য হলো বিশেষ চাহিদাসম্পন্ন শিশুর প্রতি অবহেলা না করে সহানুভূতিশীল ও সহযোগী হওয়া।"
+      },
+
+      // -----------------------------------------------------------------------
+      // CHAPTER 2: গদ্য ৯ম অধ্যায় — বহু জাতিসত্তার দেশ বাংলাদেশ (এ. কে. শেরাম) — 15 Questions
+      // -----------------------------------------------------------------------
+      {
+        id: 16,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "'বহু জাতিসত্তার দেশ বাংলাদেশ' রচনাটির লেখক কে?",
+        options: ['সুভাষ মুখোপাধ্যায়', 'এ. কে. শেরাম', 'হারুন হাবীব', 'সেলিম আল দীন'],
+        correctIndex: 1,
+        explanation: "'বহু জাতিসত্তার দেশ বাংলাদেশ' রচনাটির লেখক এ. কে. শেরাম।"
+      },
+      {
+        id: 17,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "বাংলাদেশের প্রধান ও মূল জনগোষ্ঠী কোনটি?",
+        options: ['চাকমা', 'বাঙালি', 'গারো', 'সাঁওতাল'],
+        correctIndex: 1,
+        explanation: "বাংলাদেশে সংখ্যাগরিষ্ঠ ও মূল জনগোষ্ঠী হলো বাঙালি।"
+      },
+      {
+        id: 18,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "চাকমা জনগোষ্ঠী প্রধানত বাংলাদেশের কোন অঞ্চলে বসবাস করে?",
+        options: ['সুন্দরবন অঞ্চলে', 'পার্বত্য চট্টগ্রামে', 'উত্তরবঙ্গে', 'খুলনা বিভাগে'],
+        correctIndex: 1,
+        explanation: "চাকমাদের প্রধান বসতি পার্বত্য চট্টগ্রামের রাঙামাটি, খাগড়াছড়ি ও বান্দরবান অঞ্চলে।"
+      },
+      {
+        id: 19,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "চাকমা সমাজে গ্রামপ্রধানকে কী বলা হয়?",
+        options: ['রাজা', 'কারবারি', 'মণ্ডল', 'সর্দার'],
+        correctIndex: 1,
+        explanation: "চাকমা সমাজব্যবস্থায় গ্রামপ্রধানকে 'কারবারি' বলা হয়, যিনি গ্রামের সমস্যা নিষ্পত্তি করেন।"
+      },
+      {
+        id: 20,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "চাকমারা প্রধানত কোন ধর্মাবলম্বী?",
+        options: ['হিন্দুধর্ম', 'বৌদ্ধধর্ম', 'খ্রিষ্টধর্ম', 'ইসলামধর্ম'],
+        correctIndex: 1,
+        explanation: "চাকমা জনগোষ্ঠীর অধিকাংশ মানুষ বৌদ্ধধর্মাবলম্বী।"
+      },
+      {
+        id: 21,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "চাকমা নারীদের ঐতিহ্যবাহী পোশাকের নাম কী?",
+        options: ['দকমান্দা', 'পিনন ও হাদি', 'লাহিং', 'থামি'],
+        correctIndex: 1,
+        explanation: "চাকমা নারীরা ঐতিহ্যগতভাবে 'পিনন' পরিধান করেন এবং 'হাদি' (খাদি) ওড়না হিসেবে ব্যবহার করেন।"
+      },
+      {
+        id: 22,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "চাকমাদের প্রধান বর্ষবরণ ও সামাজিক উৎসব কোনটি?",
+        options: ['ওয়ানগালা', 'বিজু', 'বাহা', 'সোহরাই'],
+        correctIndex: 1,
+        explanation: "চাকমাদের প্রধান উৎসব হলো 'বিজু'।"
+      },
+      {
+        id: 23,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "মারমাদের প্রধান সামাজিক উৎসবের নাম কী?",
+        options: ['বিজু', 'সাংগ্রাই', 'বৈসু', 'করম'],
+        correctIndex: 1,
+        explanation: "নববর্ষ উপলক্ষে মারমাদের প্রধান উৎসব হলো 'সাংগ্রাই'।"
+      },
+      {
+        id: 24,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "পার্বত্য চট্টগ্রামের তিনটি প্রধান উৎসব (বৈসু, সাংগ্রাই, বিজু) একত্রে কী নামে পরিচিত?",
+        options: ['নবান্ন', 'বৈসাবি', 'পৌষপার্বণ', 'চৈত্রসংক্রান্তি'],
+        correctIndex: 1,
+        explanation: "বৈসু, সাংগ্রাই ও বিজুর প্রথম অক্ষর নিয়ে উৎসবটি 'বৈসাবি' নামে পরিচিত।"
+      },
+      {
+        id: 25,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "গারো সমাজব্যবস্থা কী ধরনের?",
+        options: ['পিতৃতান্ত্রিক', 'মাতৃতান্ত্রিক', 'যৌথ পরিবারভিত্তিক', 'রাজতান্ত্রিক'],
+        correctIndex: 1,
+        explanation: "গারো সমাজ মাতৃসূত্রীয় বা মাতৃতান্ত্রিক; এখানে সম্পত্তির উত্তরাধিকার ও বংশপরিচয় মায়ের সূত্রে নির্ধারিত হয়।"
+      },
+      {
+        id: 26,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "গারোদের প্রধান ধর্মীয় ও সামাজিক উৎসব কোনটি?",
+        options: ['বিজু', 'ওয়ানগালা', 'সাংগ্রাই', 'বাহা'],
+        correctIndex: 1,
+        explanation: "নতুন ফসল তোলার সময় গারোরা কৃতজ্ঞতা প্রকাশে 'ওয়ানগালা' উৎসব পালন করে।"
+      },
+      {
+        id: 27,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "গারোদের নিজস্ব ভাষার নাম কী?",
+        options: ['ককবরক', 'আচিক', 'সাদরি', 'মৈতৈ'],
+        correctIndex: 1,
+        explanation: "গারোদের নিজস্ব ভাষাকে 'আচিক' বা আচিক কথা বলা হয়।"
+      },
+      {
+        id: 28,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "ত্রিপুরাদের ভাষার নাম কী?",
+        options: ['আচিক', 'ককবরক', 'চাকমা', 'সাঁওতালি'],
+        correctIndex: 1,
+        explanation: "ত্রিপুরা জনগোষ্ঠীর নিজস্ব ভাষার নাম 'ককবরক'।"
+      },
+      {
+        id: 29,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "সাঁওতালদের প্রধান বসতি বাংলাদেশের কোন অঞ্চলে দেখা যায়?",
+        options: ['পার্বত্য চট্টগ্রাম', 'উত্তরবঙ্গ (রাজশাহী, দিনাজপুর, রংপুর ইত্যাদি)', 'কক্সবাজার', 'বরিশাল'],
+        correctIndex: 1,
+        explanation: "সাঁওতালদের প্রধান বসতি উত্তরবঙ্গের বিভিন্ন জেলায় অবস্থিত।"
+      },
+      {
+        id: 30,
+        chapterId: 'ch2',
+        chapterName: 'গদ্য ৯ম অধ্যায়: বহু জাতিসত্তার দেশ বাংলাদেশ',
+        question: "বহু জাতিসত্তার সংস্কৃতি জানার মূল তাৎপর্য কী?",
+        options: ['বিভেদ সৃষ্টি করা', 'পারস্পরিক শ্রদ্ধাবোধ, সম্প্রীতি ও জাতীয় ঐক্য সুদৃঢ় করা', 'নিজের ভাষা ভুলে যাওয়া', 'শুধু উৎসব দেখা'],
+        correctIndex: 1,
+        explanation: "দেশের বিভিন্ন জাতিসত্তার সংস্কৃতি সম্পর্কে জানলে পারস্পরিক শ্রদ্ধাবোধ ও বৃহত্তর জাতীয় ঐক্য গড়ে ওঠে।"
+      },
+
+      // -----------------------------------------------------------------------
+      // CHAPTER 3: পদ্য ৮ম অধ্যায় — এই অক্ষরে (মহাদেব সাহা) — 15 Questions
+      // -----------------------------------------------------------------------
+      {
+        id: 31,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "'এই অক্ষরে' কবিতাটির কবি কে?",
+        options: ['শামসুর রাহমান', 'মহাদেব সাহা', 'নির্মলেন্দু গুণ', 'আল মাহমুদ'],
+        correctIndex: 1,
+        explanation: "'এই অক্ষরে' কবিতাটি লিখেছেন কবি মহাদেব সাহা।"
+      },
+      {
+        id: 32,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "কবি মহাদেব সাহা বাংলা অক্ষরকে কিসের সাথে তুলনা করেছেন?",
+        options: ['সাগরের সাথে', 'নির্ঝরের সাথে', 'পাহাড়ের সাথে', 'বাতাসের সাথে'],
+        correctIndex: 1,
+        explanation: "কবিতায় বাংলা অক্ষরকে প্রবহমান 'নির্ঝর' বা ঝরনার সাথে তুলনা করা হয়েছে।"
+      },
+      {
+        id: 33,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "'নির্ঝর' শব্দের অর্থ কী?",
+        options: ['নদী', 'ঝরনা', 'মেঘ', 'সাগর'],
+        correctIndex: 1,
+        explanation: "'নির্ঝর' শব্দের অর্থ ঝরনা বা প্রস্রবণ।"
+      },
+      {
+        id: 34,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "কবিতায় বাংলা অক্ষরগুলো কীভাবে ছুটে চলে?",
+        options: ['থেমে থেমে', 'অবিরাম', 'ধীরে ধীরে', 'আটকে আটকে'],
+        correctIndex: 1,
+        explanation: "বাংলা অক্ষর ও মাতৃভাষার নিরন্তর প্রবহমানতা বোঝাতে তা 'অবিরাম ছুটে চলে' বলা হয়েছে।"
+      },
+      {
+        id: 35,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "আকাশে নাম লিখে কারা পাহারা দিচ্ছে বলে কবি কল্পনা করেছেন?",
+        options: ['চাঁদ', 'তারা', 'মেঘ', 'পাখি'],
+        correctIndex: 1,
+        explanation: "কবিতায় আকাশে নাম লিখে তারাদের পাহারা দেওয়ার কাব্যিক চিত্র ফুটে উঠেছে।"
+      },
+      {
+        id: 36,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "অক্ষরগুলো মুখ তুলে চাইলে কবির অন্তরে কী জেগে ওঠে?",
+        options: ['ভয়', 'গান', 'রাগ', 'ক্লান্তি'],
+        correctIndex: 1,
+        explanation: "অক্ষরগুলোর দিকে তাকালে কবির মনে সুর ও গান জেগে ওঠে।"
+      },
+      {
+        id: 37,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "আমরা অক্ষরের কাছ থেকে কী শিখি বলে কবিতায় বলা হয়েছে?",
+        options: ['কেবল পুরোনো কথা', 'অজানা যা আছে', 'বিদেশি রীতি', 'নীরব থাকা'],
+        correctIndex: 1,
+        explanation: "মাতৃভাষা ও অক্ষরের মাধ্যমে আমরা চারপাশের অজানা অনেক কিছু জানতে ও শিখতে পারি।"
+      },
+      {
+        id: 38,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "বাংলা অক্ষর দেখলে কবির কাকে মনে পড়ে?",
+        options: ['বাবাকে', 'মাকে', 'বন্ধুকে', 'শিক্ষককে'],
+        correctIndex: 1,
+        explanation: "মাতৃভাষার অক্ষরের সাথে মায়ের স্নেহ ও স্মৃতি জড়িয়ে থাকায় কবির মাকে মনে পড়ে।"
+      },
+      {
+        id: 39,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "কবি অন্য কিছু না পেলেও কী পেলে খুশি হন?",
+        options: ['অর্থ', 'চিঠিখানা', 'অলংকার', 'উপাধি'],
+        correctIndex: 1,
+        explanation: "কবিতায় প্রিয় অক্ষরে লেখা 'চিঠিখানা' পাওয়ার আনন্দ ও আবেগের কথা বলা হয়েছে।"
+      },
+      {
+        id: 40,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "সকাল-দুপুর উদাস নূপুর কে বাজায় বলে কবিতায় উল্লেখ আছে?",
+        options: ['বৃষ্টি', 'কবি', 'নদী', 'বাতাস'],
+        correctIndex: 1,
+        explanation: "কবি নিজের উদাস মনের অনুরণনকে 'সকাল-দুপুর উদাস নূপুর' বাজানোর রূপকে তুলে ধরেছেন।"
+      },
+      {
+        id: 41,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "এই অক্ষরে কে কবিকে ডাক দেয় বলে মনে হয়?",
+        options: ['পথচারী', 'ডাকনাম ধরে কেউ', 'মাঝি', 'প্রহরী'],
+        correctIndex: 1,
+        explanation: "আপনজনের মতো 'ডাকনাম ধরে কেউ' ডাকার মধুর অনুভূতি অক্ষরের সাথে যুক্ত হয়েছে।"
+      },
+      {
+        id: 42,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "বাংলা অক্ষর কাদের কাছে টানে?",
+        options: ['শুধু আপনজনকে', 'আত্মীয়-পর সকলকে', 'শুধু লেখকদের', 'শুধু শিশুদের'],
+        correctIndex: 1,
+        explanation: "ভাষা ও অক্ষর আত্মীয়-পর নির্বিশেষে সকলকে মায়ার বন্ধনে কাছে টানে।"
+      },
+      {
+        id: 43,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "প্রিয় বাংলা ভাষা বুকে কী জাগায়?",
+        options: ['ভয়', 'আশা', 'সংশয়', 'হতাশা'],
+        correctIndex: 1,
+        explanation: "মাতৃভাষা মানুষের মনে শক্তি, স্বপ্ন ও নতুন আশা জাগায়।"
+      },
+      {
+        id: 44,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "কঠিন পাথরে এই অক্ষরে কী লেখা হয়?",
+        options: ['চিঠি', 'শিলালিপি', 'হিসাব', 'দিনলিপি'],
+        correctIndex: 1,
+        explanation: "ইতিহাস ও স্মৃতি ধরে রাখতে কঠিন পাথরে শিলালিপি লেখা হয়।"
+      },
+      {
+        id: 45,
+        chapterId: 'ch3',
+        chapterName: 'পদ্য ৮ম অধ্যায়: এই অক্ষরে',
+        question: "'এই অক্ষরে' কবিতার মূল চেতনা কী?",
+        options: ['প্রকৃতি ভ্রমণ', 'মাতৃভাষা ও বাংলা বর্ণমালার প্রতি গভীর ভালোবাসা ও আত্মপরিচয়ের গৌরব', 'শহরের কোলাহল', 'খেলাধুলার আনন্দ'],
+        correctIndex: 1,
+        explanation: "কবিতাটি বাংলা বর্ণমালা ও মাতৃভাষার প্রতি ভালোবাসা, সংগ্রাম ও গৌরবকে ধারণ করে।"
+      },
+
+      // -----------------------------------------------------------------------
+      // CHAPTER 4: পদ্য ৯ম অধ্যায় — সিঁথি (হাসান রোবায়েত) — 15 Questions
+      // -----------------------------------------------------------------------
+      {
+        id: 46,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'সিঁথি' কবিতাটির রচয়িতা কে?",
+        options: ['হাসান হাফিজুর রহমান', 'হাসান রোবায়েত', 'রুদ্র মুহম্মদ শহিদুল্লাহ', 'আসাদ চৌধুরী'],
+        correctIndex: 1,
+        explanation: "'সিঁথি' কবিতাটি লিখেছেন কবি হাসান রোবায়েত।"
+      },
+      {
+        id: 47,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'সিঁথি' কবিতাটি কোন ঐতিহাসিক প্রেক্ষাপটে রচিত?",
+        options: ['১৯৫২-র ভাষা আন্দোলন', '২০২৪-এর জুলাই গণঅভ্যুত্থান', '১৯৭১-এর মুক্তিযুদ্ধ', '১৯৬৯-এর গণঅভ্যুত্থান'],
+        correctIndex: 1,
+        explanation: "কবিতাটি ২০২৪-এর জুলাই গণঅভ্যুত্থানের রক্তাক্ত সংগ্রাম ও আত্মত্যাগের প্রেক্ষাপটে রচিত।"
+      },
+      {
+        id: 48,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "কবিতায় 'ভাই মরল রংপুরে' পঙক্তিটি কোন আত্মত্যাগকে স্মরণ করায়?",
+        options: ['ঐতিহাসিক যুদ্ধের', 'জুলাই অভ্যুত্থানে রংপুরের শহিদদের আত্মত্যাগ', 'বন্যা দুর্গতদের', 'নৌকাডুবির'],
+        correctIndex: 1,
+        explanation: "রংপুরে রাজপথে শহিদ হওয়া ভাইদের আত্মত্যাগের কথা এখানে গভীর শ্রদ্ধায় স্মরণ করা হয়েছে।"
+      },
+      {
+        id: 49,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'সেই রংপুরই তো বাংলাদেশ'—এর মাধ্যমে কবি কী বুঝিয়েছেন?",
+        options: ['রংপুর একটি জেলা', 'রংপুরের শহিদদের রক্ত ও আত্মত্যাগ সমগ্র বাংলাদেশের মুক্তির প্রতীক হয়ে উঠেছে', 'রংপুরে সবচেয়ে বেশি বৃষ্টি হয়', 'রংপুর রাজধানী'],
+        correctIndex: 1,
+        explanation: "একটি অঞ্চলের শহিদের আত্মত্যাগ কীভাবে পুরো দেশের মুক্তির সংগ্রামের প্রতীক হয়ে ওঠে, তা বোঝানো হয়েছে।"
+      },
+      {
+        id: 50,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "কবিতায় কারা আগুন দিল বলে উল্লেখ আছে?",
+        options: ['মাঝিরা', 'নুসরাতেরা', 'কৃষকেরা', 'জেলে'],
+        correctIndex: 1,
+        explanation: "কবিতায় প্রতিরোধের প্রতীক হিসেবে 'নুসরাতেরা' আগুন জ্বালানোর কথা এসেছে।"
+      },
+      {
+        id: 51,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "নুসরাতেরা আগুন দেওয়ায় কী ঘটেছে বলে কবি কল্পনা করেছেন?",
+        options: ['বৃষ্টি নেমেছে', 'দোজখ যেন কেশ ছড়ায়', 'শীত পড়েছে', 'হাওয়া বয়েছে'],
+        correctIndex: 1,
+        explanation: "অত্যাচারের বিরুদ্ধে জ্বলে ওঠা প্রতিরোধের আগুনের তীব্রতা বোঝাতে 'দোজখ যেন কেশ ছড়ায়' বলা হয়েছে।"
+      },
+      {
+        id: 52,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'সিঁথি' কবিতায় কওমি তরুণ কোথায় দাঁড়িয়েছিল?",
+        options: ['বাড়িঘরে', 'কারবালার ফোরাতে', 'রেলস্টেশনে', 'বইমেলায়'],
+        correctIndex: 1,
+        explanation: "ন্যায় ও সত্যের পক্ষে সাহসী অবস্থানের প্রতীক হিসেবে কওমি তরুণ 'কারবালার ফোরাতে' দাঁড়িয়েছিল।"
+      },
+      {
+        id: 53,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "কবিতায় 'খুনির আরশ পোড়াতে' কথাটি কী অর্থে ব্যবহৃত হয়েছে?",
+        options: ['বাড়ি সাজাতে', 'স্বৈরাচারী ও খুনি শাসকের ক্ষমতার আসন ধ্বংস করতে', 'আকাশ রাঙাতে', 'উৎসব করতে'],
+        correctIndex: 1,
+        explanation: "'আরশ' বলতে এখানে ক্ষমতার উচ্চাসনকে বোঝানো হয়েছে, যা জুলুমবাজ শাসকের পতনকে নির্দেশ করে।"
+      },
+      {
+        id: 54,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "কবিতার বর্ণনা অনুযায়ী কোন এলাকা আজরাইলের ফাঁড়িতে ডুবে গিয়েছিল?",
+        options: ['উত্তরা', 'যাত্রাবাড়ী', 'ধানমন্ডি', 'গুলশান'],
+        correctIndex: 1,
+        explanation: "কবিতায় যাত্রাবাড়ীর ভয়াবহ হত্যাযজ্ঞ ও রক্তক্ষয়ী পরিস্থিতির কথা উঠে এসেছে।"
+      },
+      {
+        id: 55,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'চিরকালই স্বাধীনতা আসে এমন রীতিতে'—এখানে কোন রীতির কথা বলা হয়েছে?",
+        options: ['বিনা সংগ্রামে প্রাপ্তির', 'রক্ত ও চরম আত্মত্যাগের বিনিময়ে মুক্তির', 'আলোচনার টেবিলের', 'ভ্রমণের'],
+        correctIndex: 1,
+        explanation: "ইতিহাসে স্বাধীনতা ও মুক্তি এসেছে মানুষের রক্ত ও আত্মত্যাগের মধ্য দিয়ে।"
+      },
+      {
+        id: 56,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'কত রক্ত লাইগা আছে বাংলাদেশের সিঁথিতে'—এখানে 'সিঁথি' কী অর্থে ব্যবহৃত?",
+        options: ['চুলের ভাগ', 'বাংলাদেশের মানচিত্র, অস্তিত্ব ও গৌরবময় ললাট', 'নদীর বাঁক', 'রাস্তার মোড়'],
+        correctIndex: 1,
+        explanation: "এখানে 'সিঁথি' রূপক অর্থে দেশের মানচিত্র, অস্তিত্ব ও আত্মত্যাগে রাঙানো ললাটকে বোঝায়।"
+      },
+      {
+        id: 57,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "কবিতায় 'গোরস্থান' শব্দের অর্থ কী?",
+        options: ['বাগান', 'কবরস্থান বা সমাধিস্থল', 'খেলার মাঠ', 'হাটবাজার'],
+        correctIndex: 1,
+        explanation: "'গোরস্থান' অর্থ কবরস্থান বা সমাধিক্ষেত্র।"
+      },
+      {
+        id: 58,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "কবিতায় মা কার অপেক্ষায় দুয়ার খুলে রেখেছেন?",
+        options: ['অতিথির', 'পোলা-মাইয়ার (সন্তানদের)', 'প্রতিবেশীর', 'দোকানির'],
+        correctIndex: 1,
+        explanation: "আন্দোলন ও মিছিলে যাওয়া সন্তানদের ফেরার আশায় মা দুয়ার খুলে রেখেছেন।"
+      },
+      {
+        id: 59,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'সিঁথি' কবিতায় কোন ধরনের ভাষা ও রীতি লক্ষ্য করা যায়?",
+        options: ['তৎসমবহুল সাধু রীতি', 'মানুষের মুখের ভাষার উচ্চারণরীতি ও আঞ্চলিক বাগবিধি', 'ইংরেজি মিশ্রিত ভাষা', 'পৌরাণিক গদ্যরীতি'],
+        correctIndex: 1,
+        explanation: "কবিতাটিতে সাধারণ মানুষের মুখের ভাষার টান, আঞ্চলিক শব্দ ও উচ্চারণরীতি প্রাণবন্তভাবে ব্যবহৃত হয়েছে।"
+      },
+      {
+        id: 60,
+        chapterId: 'ch4',
+        chapterName: 'পদ্য ৯ম অধ্যায়: সিঁথি',
+        question: "'সিঁথি' কবিতা পাঠের মূল শিক্ষা কী?",
+        options: ['ভয়ে ঘরে বসে থাকা', 'অন্যায় ও স্বৈরাচারের বিরুদ্ধে সাহস, আত্মত্যাগ ও মুক্তির চেতনায় অবিচল থাকা', 'ইতিহাস ভুলে যাওয়া', 'কেবল বিনোদন খোঁজা'],
+        correctIndex: 1,
+        explanation: "কবিতাটি অন্যায়ের বিরুদ্ধে রুখে দাঁড়ানো, শহিদদের আত্মত্যাগের মর্যাদা ও মুক্তির চেতনা জাগ্রত করে।"
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE & PERSISTENCE
+    // =========================================================================
+    const state = {
+      selectedChapter: 'all',
+      viewMode: 'single', // 'single' | 'all'
+      currentQuestionIndex: 0, // Index within the currently filtered/active question list
+      userAnswers: {}, // { [questionId]: selectedOptionIndex }
+      retryWrongOnly: false,
+      wrongQuestionIds: [], // Snapshot of wrong IDs when retrying incorrect ones
+    };
+
+    // Convert Arabic/English digits to Bengali digits for display
+    function toBengaliNumber(num) {
+      const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return String(num)
+        .split('')
+        .map((ch) => (/\d/.test(ch) ? bengaliDigits[Number(ch)] : ch))
+        .join('');
+    }
+
+    // Return the active list of questions based on chapter filter or retry-incorrect mode
+    function getActiveQuestions() {
+      if (state.retryWrongOnly && state.wrongQuestionIds.length > 0) {
+        return QUESTIONS.filter((q) => state.wrongQuestionIds.includes(q.id));
+      }
+      if (state.selectedChapter === 'all') {
+        return QUESTIONS;
+      }
+      return QUESTIONS.filter((q) => q.chapterId === state.selectedChapter);
+    }
+
+    // =========================================================================
+    // 3. THEME MANAGEMENT
+    // =========================================================================
+    function initTheme() {
+      const savedTheme = localStorage.getItem('banglaQuizTheme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+      applyTheme(isDark);
+    }
+
+    function applyTheme(isDark) {
+      const root = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (isDark) {
+        root.classList.add('dark');
+        if (icon) icon.textContent = '☀️';
+      } else {
+        root.classList.remove('dark');
+        if (icon) icon.textContent = '🌙';
+      }
+      localStorage.setItem('banglaQuizTheme', isDark ? 'dark' : 'light');
+    }
+
+    function toggleTheme() {
+      const isDark = !document.documentElement.classList.contains('dark');
+      applyTheme(isDark);
+    }
+
+    // =========================================================================
+    // 4. RENDERING FUNCTIONS
+    // =========================================================================
+    function renderChapterTabs() {
+      const container = document.getElementById('chapterTabs');
+      container.innerHTML = CHAPTERS.map((chap) => {
+        const isActive = !state.retryWrongOnly && state.selectedChapter === chap.id;
+        return `
+          <button
+            type="button"
+            onclick="selectChapter('${chap.id}')"
+            class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all border ${
+              isActive
+                ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200/70 dark:hover:bg-slate-700/70'
+            }"
+          >
+            ${chap.label}
+          </button>
+        `;
+      }).join('');
+
+      if (state.retryWrongOnly) {
+        container.innerHTML += `
+          <span class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-amber-500 text-white shadow-sm">
+            ভুল প্রশ্ন অনুশীলন মোড (${toBengaliNumber(getActiveQuestions().length)}টি)
+          </span>
+        `;
+      }
+    }
+
+    function updateStatsAndProgress() {
+      const activeQuestions = getActiveQuestions();
+      const total = activeQuestions.length;
+
+      let correct = 0;
+      let incorrect = 0;
+
+      activeQuestions.forEach((q) => {
+        if (state.userAnswers[q.id] !== undefined) {
+          if (state.userAnswers[q.id] === q.correctIndex) {
+            correct++;
+          } else {
+            incorrect++;
+          }
+        }
+      });
+
+      const answered = correct + incorrect;
+      const remaining = Math.max(0, total - answered);
+      const percent = total > 0 ? Math.round((answered / total) * 100) : 0;
+
+      document.getElementById('statTotal').textContent = toBengaliNumber(total);
+      document.getElementById('statCorrect').textContent = toBengaliNumber(correct);
+      document.getElementById('statIncorrect').textContent = toBengaliNumber(incorrect);
+      document.getElementById('statRemaining').textContent = toBengaliNumber(remaining);
+
+      document.getElementById('progressLabel').textContent =
+        `অগ্রগতি: ${toBengaliNumber(total)}টির মধ্যে ${toBengaliNumber(answered)}টি উত্তর দেওয়া হয়েছে`;
+      document.getElementById('progressPercent').textContent = `${toBengaliNumber(percent)}%`;
+      document.getElementById('progressBarFill').style.width = `${percent}%`;
+
+      // Global incorrect count across all answered questions so far
+      const allIncorrectIds = QUESTIONS.filter(
+        (q) => state.userAnswers[q.id] !== undefined && state.userAnswers[q.id] !== q.correctIndex
+      ).map((q) => q.id);
+
+      const retryBtn = document.getElementById('retryIncorrectBtn');
+      const retryBadge = document.getElementById('incorrectCountBadge');
+      retryBadge.textContent = toBengaliNumber(allIncorrectIds.length);
+      retryBtn.disabled = allIncorrectIds.length === 0;
+
+      // Completion banner logic
+      const banner = document.getElementById('completionBanner');
+      const bannerRetryWrongBtn = document.getElementById('bannerRetryWrongBtn');
+      if (total > 0 && answered === total) {
+        banner.classList.remove('hidden');
+        const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+        document.getElementById('completionTitle').textContent =
+          `অভিনন্দন! এই সেটের সব ${toBengaliNumber(total)}টি প্রশ্নের উত্তর সম্পন্ন হয়েছে।`;
+        document.getElementById('completionSummary').textContent =
+          `আপনি ${toBengaliNumber(correct)}টি সঠিক উত্তর ও ${toBengaliNumber(incorrect)}টি ভুল উত্তর দিয়েছেন (সঠিকতার হার: ${toBengaliNumber(accuracy)}%)।`;
+
+        if (incorrect > 0) {
+          bannerRetryWrongBtn.classList.remove('hidden');
+        } else {
+          bannerRetryWrongBtn.classList.add('hidden');
+        }
+      } else {
+        banner.classList.add('hidden');
+      }
+    }
+
+    function buildQuestionCardHTML(q, displayIndex, totalInSet) {
+      const selectedOption = state.userAnswers[q.id];
+      const hasAnswered = selectedOption !== undefined;
+      const isCorrect = hasAnswered && selectedOption === q.correctIndex;
+
+      const optionsHTML = q.options
+        .map((optText, idx) => {
+          let cardClasses =
+            'border-slate-200 dark:border-slate-700/90 bg-slate-50/70 dark:bg-slate-800/60 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/30 text-slate-800 dark:text-slate-100';
+          let badgeClasses =
+            'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600';
+          let statusTag = '';
+
+          if (hasAnswered) {
+            if (idx === q.correctIndex) {
+              cardClasses =
+                'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-950 dark:text-emerald-100 ring-1 ring-emerald-500';
+              badgeClasses =
+                'bg-emerald-600 text-white border-emerald-600';
+              statusTag = `<span class="ml-auto text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">সঠিক</span>`;
+            } else if (idx === selectedOption) {
+              cardClasses =
+                'border-rose-500 bg-rose-50 dark:bg-rose-950/50 text-rose-950 dark:text-rose-100 ring-1 ring-rose-500';
+              badgeClasses =
+                'bg-rose-600 text-white border-rose-600';
+              statusTag = `<span class="ml-auto text-xs font-bold px-2 py-0.5 rounded-full bg-rose-600 text-white">আপনার উত্তর</span>`;
+            } else {
+              cardClasses =
+                'border-slate-200/70 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400 opacity-75';
+            }
+          }
+
+          return `
+            <button
+              type="button"
+              onclick="selectAnswer(${q.id}, ${idx})"
+              ${hasAnswered ? 'aria-pressed="true"' : 'aria-pressed="false"'}
+              class="w-full text-left p-3.5 sm:p-4 rounded-xl border transition-all flex items-center gap-3.5 group cursor-pointer ${cardClasses}"
+            >
+              <span class="w-8 h-8 rounded-lg border font-bold text-sm flex items-center justify-center shrink-0 transition ${badgeClasses}">
+                ${OPTION_LABELS[idx]}
+              </span>
+              <span class="text-sm sm:text-base font-medium leading-relaxed">${optText}</span>
+              ${statusTag}
+            </button>
+          `;
+        })
+        .join('');
+
+      const feedbackHTML = hasAnswered
+        ? `
+          <div class="mt-5 p-4 rounded-xl border animate-fade-in ${
+            isCorrect
+              ? 'bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/70'
+              : 'bg-rose-50/90 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/70'
+          }">
+            <div class="flex items-center gap-2 font-bold text-sm sm:text-base ${
+              isCorrect ? 'text-emerald-800 dark:text-emerald-300' : 'text-rose-800 dark:text-rose-300'
+            }">
+              <span>${isCorrect ? '✓ উত্তর সঠিক হয়েছে!' : '✕ উত্তরটি সঠিক নয়।'}</span>
+              <span class="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
+                • সঠিক উত্তর: (${OPTION_LABELS[q.correctIndex]}) ${q.options[q.correctIndex]}
+              </span>
+            </div>
+            <p class="mt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <strong class="font-semibold text-slate-900 dark:text-white">ব্যাখ্যা:</strong> ${q.explanation}
+            </p>
+          </div>
+        `
+        : '';
+
+      return `
+        <article class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm animate-fade-in">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/80 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300">
+              ${q.chapterName}
+            </span>
+            <span class="text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400">
+              প্রশ্ন নং: ${toBengaliNumber(q.id)} (সেটে ${toBengaliNumber(displayIndex + 1)} / ${toBengaliNumber(totalInSet)})
+            </span>
+          </div>
+
+          <h2 class="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white leading-relaxed mb-4">
+            ${toBengaliNumber(q.id)}. ${q.question}
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            ${optionsHTML}
+          </div>
+
+          ${feedbackHTML}
+        </article>
+      `;
+    }
+
+    function renderPalette(activeQuestions) {
+      const palette = document.getElementById('questionPalette');
+      palette.innerHTML = activeQuestions
+        .map((q, idx) => {
+          const isCurrent = idx === state.currentQuestionIndex;
+          const ans = state.userAnswers[q.id];
+
+          let btnClass =
+            'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700';
+
+          if (ans !== undefined) {
+            if (ans === q.correctIndex) {
+              btnClass =
+                'bg-emerald-500 text-white border-emerald-600 hover:bg-emerald-600';
+            } else {
+              btnClass =
+                'bg-rose-500 text-white border-rose-600 hover:bg-rose-600';
+            }
+          }
+
+          const ringClass = isCurrent ? 'ring-2 ring-offset-2 ring-emerald-600 dark:ring-offset-slate-900' : '';
+
+          return `
+            <button
+              type="button"
+              onclick="jumpToIndex(${idx})"
+              class="w-9 h-9 rounded-lg text-xs font-bold border transition flex items-center justify-center ${btnClass} ${ringClass}"
+              title="প্রশ্ন ${toBengaliNumber(q.id)}"
+            >
+              ${toBengaliNumber(q.id)}
+            </button>
+          `;
+        })
+        .join('');
+    }
+
+    function renderQuizView() {
+      const activeQuestions = getActiveQuestions();
+      if (state.currentQuestionIndex >= activeQuestions.length) {
+        state.currentQuestionIndex = 0;
+      }
+
+      const singleSection = document.getElementById('singleQuestionView');
+      const allSection = document.getElementById('allQuestionsView');
+
+      if (activeQuestions.length === 0) {
+        singleSection.classList.add('hidden');
+        allSection.classList.remove('hidden');
+        allSection.innerHTML = `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 text-center">
+            <p class="text-base font-semibold text-slate-700 dark:text-slate-300">এই বিভাগে কোনো প্রশ্ন নেই।</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (state.viewMode === 'single') {
+        singleSection.classList.remove('hidden');
+        allSection.classList.add('hidden');
+
+        renderPalette(activeQuestions);
+
+        const currentQ = activeQuestions[state.currentQuestionIndex];
+        document.getElementById('activeQuestionContainer').innerHTML = buildQuestionCardHTML(
+          currentQ,
+          state.currentQuestionIndex,
+          activeQuestions.length
+        );
+
+        document.getElementById('singleIndexIndicator').textContent =
+          `প্রশ্ন ${toBengaliNumber(state.currentQuestionIndex + 1)} / ${toBengaliNumber(activeQuestions.length)}`;
+
+        document.getElementById('prevQuestionBtn').disabled = state.currentQuestionIndex === 0;
+        document.getElementById('nextQuestionBtn').disabled =
+          state.currentQuestionIndex === activeQuestions.length - 1;
+      } else {
+        singleSection.classList.add('hidden');
+        allSection.classList.remove('hidden');
+        allSection.innerHTML = activeQuestions
+          .map((q, idx) => buildQuestionCardHTML(q, idx, activeQuestions.length))
+          .join('');
+      }
+    }
+
+    function renderAll() {
+      renderChapterTabs();
+      updateStatsAndProgress();
+      renderQuizView();
+    }
+
+    // =========================================================================
+    // 5. USER INTERACTIONS & NAVIGATION
+    // =========================================================================
+    function selectChapter(chapterId) {
+      state.retryWrongOnly = false;
+      state.wrongQuestionIds = [];
+      state.selectedChapter = chapterId;
+      state.currentQuestionIndex = 0;
+      renderAll();
+    }
+
+    function setViewMode(mode) {
+      state.viewMode = mode;
+      const singleBtn = document.getElementById('modeSingleBtn');
+      const allBtn = document.getElementById('modeAllBtn');
+
+      if (mode === 'single') {
+        singleBtn.className =
+          'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-emerald-600 text-white shadow-sm';
+        allBtn.className =
+          'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60';
+      } else {
+        allBtn.className =
+          'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-emerald-600 text-white shadow-sm';
+        singleBtn.className =
+          'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60';
+      }
+
+      renderQuizView();
+    }
+
+    function selectAnswer(questionId, optionIndex) {
+      // Lock or allow changing? Locking on instant feedback prevents accidental double-tap score shift
+      if (state.userAnswers[questionId] !== undefined) {
+        return;
+      }
+      state.userAnswers[questionId] = optionIndex;
+      updateStatsAndProgress();
+      renderQuizView();
+    }
+
+    function navigateQuestion(delta) {
+      const activeQuestions = getActiveQuestions();
+      const nextIndex = state.currentQuestionIndex + delta;
+      if (nextIndex >= 0 && nextIndex < activeQuestions.length) {
+        state.currentQuestionIndex = nextIndex;
+        renderQuizView();
+      }
+    }
+
+    function jumpToIndex(index) {
+      const activeQuestions = getActiveQuestions();
+      if (index >= 0 && index < activeQuestions.length) {
+        state.currentQuestionIndex = index;
+        renderQuizView();
+      }
+    }
+
+    function retryIncorrectQuestions() {
+      const wrongIds = QUESTIONS.filter(
+        (q) => state.userAnswers[q.id] !== undefined && state.userAnswers[q.id] !== q.correctIndex
+      ).map((q) => q.id);
+
+      if (wrongIds.length === 0) return;
+
+      // Clear previous answers for those wrong questions so they can be answered fresh
+      wrongIds.forEach((id) => {
+        delete state.userAnswers[id];
+      });
+
+      state.wrongQuestionIds = wrongIds;
+      state.retryWrongOnly = true;
+      state.viewMode = 'single';
+      state.currentQuestionIndex = 0;
+
+      setViewMode('single');
+      renderAll();
+    }
+
+    function openResetModal() {
+      const modal = document.getElementById('resetModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeResetModal() {
+      const modal = document.getElementById('resetModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function confirmResetQuiz() {
+      state.userAnswers = {};
+      state.wrongQuestionIds = [];
+      state.retryWrongOnly = false;
+      state.currentQuestionIndex = 0;
+      closeResetModal();
+      renderAll();
+    }
+
+    // =========================================================================
+    // 6. KEYBOARD SHORTCUTS (1-4 / A-D for options, Enter / ArrowRight for next)
+    // =========================================================================
+    document.addEventListener('keydown', (event) => {
+      // Ignore shortcuts if modal is open or user is typing in an input
+      const modal = document.getElementById('resetModal');
+      if (modal && !modal.classList.contains('hidden')) {
+        if (event.key === 'Escape') closeResetModal();
+        return;
+      }
+
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+        return;
+      }
+
+      if (state.viewMode !== 'single') return;
+
+      const activeQuestions = getActiveQuestions();
+      const currentQ = activeQuestions[state.currentQuestionIndex];
+      if (!currentQ) return;
+
+      const key = event.key.toLowerCase();
+      let chosenOption = -1;
+
+      if (key === '1' || key === 'a') chosenOption = 0;
+      else if (key === '2' || key === 'b') chosenOption = 1;
+      else if (key === '3' || key === 'c') chosenOption = 2;
+      else if (key === '4' || key === 'd') chosenOption = 3;
+
+      if (chosenOption !== -1) {
+        event.preventDefault();
+        selectAnswer(currentQ.id, chosenOption);
+        return;
+      }
+
+      if (event.key === 'Enter' || event.key === 'ArrowRight') {
+        if (state.currentQuestionIndex < activeQuestions.length - 1) {
+          event.preventDefault();
+          navigateQuestion(1);
+        }
+      } else if (event.key === 'ArrowLeft') {
+        if (state.currentQuestionIndex > 0) {
+          event.preventDefault();
+          navigateQuestion(-1);
+        }
+      }
+    });
+
+    // =========================================================================
+    // 7. INITIALIZATION
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
